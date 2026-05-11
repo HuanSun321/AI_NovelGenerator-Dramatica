@@ -573,6 +573,9 @@ next_chapter_draft_prompt = """\
 └── 近期因果链（确保本章事件与已有因果关系一致）：
     {causal_context}
 
+└── 信息边界（视角角色已知信息，请勿让角色表现出超出此范围的认知）：
+    {info_boundary_context}
+
 └── 当前章节摘要：
     {short_summary}
 

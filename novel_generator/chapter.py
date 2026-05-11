@@ -497,6 +497,7 @@ def build_chapter_prompt(
     relationship_context = "（暂无关系记录）"
     hooks_context = "（暂无未闭合伏笔）"
     causal_context = "（暂无因果链记录）"
+    info_boundary_context = "（暂无信息边界记录）"
     try:
         from narrative_manager import NarrativeManager
         narrative_mgr = NarrativeManager(filepath)
@@ -504,6 +505,13 @@ def build_chapter_prompt(
         relationship_context = narrative_mgr.get_relationship_context(max_chars=500)
         hooks_context = narrative_mgr.get_hooks_context(max_chars=400)
         causal_context = narrative_mgr.get_causal_context(max_chars=800)
+        # 信息边界：为本章涉及的角色加载已知信息
+        if characters_involved:
+            char_names = [c.strip() for c in characters_involved.split("、") if c.strip()]
+            boundary_parts = []
+            for cname in char_names[:3]:  # 最多取3个角色
+                boundary_parts.append(narrative_mgr.get_info_boundary_context(cname, max_chars=200))
+            info_boundary_context = "\n".join(boundary_parts) if boundary_parts else "（暂无信息边界记录）"
     except Exception as e:
         logging.warning(f"Failed to load narrative context (non-blocking): {e}")
 
@@ -517,6 +525,7 @@ def build_chapter_prompt(
         relationship_context=relationship_context,
         hooks_context=hooks_context,
         causal_context=causal_context,
+        info_boundary_context=info_boundary_context,
         short_summary=short_summary,
         novel_number=novel_number,
         chapter_title=chapter_title,
