@@ -395,6 +395,18 @@ def finalize_chapter_ui(self):
             )
             self.safe_log(f"✅ 第{chap_num}章定稿完成（已更新前文摘要、角色状态、向量库）。")
 
+            # ── 写后验证（从 Dramatica-Flow 移植，零 LLM）──
+            try:
+                from post_write_validator import PostWriteValidator
+                validator = PostWriteValidator()
+                vr = validator.validate(edited_text, word_number)
+                if vr.issues:
+                    self.safe_log(f"📋 写后验证：{validator.format_report(vr)}")
+                else:
+                    self.safe_log(f"📋 写后验证通过（{vr.word_count} 字，无问题）")
+            except Exception:
+                pass  # 写后验证失败不影响定稿流程
+
             final_text = read_file(chapter_file)
             self.master.after(0, lambda: self.show_chapter_in_textbox(final_text))
         except Exception:
@@ -430,6 +442,26 @@ def do_consistency_check(self):
                 return
 
             self.safe_log("开始一致性审校...")
+
+            # ── 加载叙事追踪数据（从 Dramatica-Flow 移植）──
+            emotional_arcs = ""
+            relationship_matrix = ""
+            pending_hooks = ""
+            known_info_map = ""
+            causal_chain = ""
+            try:
+                from narrative_manager import NarrativeManager
+                narrative_mgr = NarrativeManager(filepath)
+                emotional_arcs = narrative_mgr.get_emotional_context(max_chars=600)
+                relationship_matrix = narrative_mgr.get_relationship_context(max_chars=500)
+                pending_hooks = narrative_mgr.get_hooks_context(max_chars=400)
+                known_info_map = narrative_mgr.get_info_boundary_context(
+                    character_id="", max_chars=400
+                )
+                causal_chain = narrative_mgr.get_causal_context(max_chars=800)
+            except Exception:
+                pass  # 叙事追踪数据加载失败不影响原有流程
+
             result = check_consistency(
                 novel_setting="",
                 character_state=read_file(os.path.join(filepath, "character_state.txt")),
@@ -442,7 +474,12 @@ def do_consistency_check(self):
                 interface_format=interface_format,
                 max_tokens=max_tokens,
                 timeout=timeout,
-                plot_arcs=""
+                plot_arcs=read_file(os.path.join(filepath, "plot_arcs.txt")),
+                emotional_arcs=emotional_arcs,
+                relationship_matrix=relationship_matrix,
+                pending_hooks=pending_hooks,
+                known_info_map=known_info_map,
+                causal_chain=causal_chain,
             )
             self.safe_log("审校结果：")
             self.safe_log(result)

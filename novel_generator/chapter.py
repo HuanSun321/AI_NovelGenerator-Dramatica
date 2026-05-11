@@ -492,12 +492,31 @@ def build_chapter_prompt(
         logging.error(f"知识处理流程异常：{str(e)}")
         filtered_context = "（知识库处理失败）"
 
+    # ── 叙事追踪上下文（从 Dramatica-Flow 移植）──
+    emotional_arcs_context = "（暂无情感记录）"
+    relationship_context = "（暂无关系记录）"
+    hooks_context = "（暂无未闭合伏笔）"
+    causal_context = "（暂无因果链记录）"
+    try:
+        from narrative_manager import NarrativeManager
+        narrative_mgr = NarrativeManager(filepath)
+        emotional_arcs_context = narrative_mgr.get_emotional_context(max_chars=600)
+        relationship_context = narrative_mgr.get_relationship_context(max_chars=500)
+        hooks_context = narrative_mgr.get_hooks_context(max_chars=400)
+        causal_context = narrative_mgr.get_causal_context(max_chars=800)
+    except Exception as e:
+        logging.warning(f"Failed to load narrative context (non-blocking): {e}")
+
     # 返回最终提示词
     return prompt_definitions.next_chapter_draft_prompt.format(
         user_guidance=user_guidance if user_guidance else "无特殊指导",
         global_summary=global_summary_text,
         previous_chapter_excerpt=previous_excerpt,
         character_state=character_state_text,
+        emotional_arcs_context=emotional_arcs_context,
+        relationship_context=relationship_context,
+        hooks_context=hooks_context,
+        causal_context=causal_context,
         short_summary=short_summary,
         novel_number=novel_number,
         chapter_title=chapter_title,

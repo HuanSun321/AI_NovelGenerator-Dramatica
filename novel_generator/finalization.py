@@ -81,6 +81,31 @@ def finalize_chapter(
     clear_file_content(character_state_file)
     save_string_to_txt(new_char_state, character_state_file)
 
+    # ── 叙事状态结算（从 Dramatica-Flow 移植）──
+    try:
+        from narrative_manager import NarrativeManager
+        from settlement_parser import SettlementParser, _extract_character_names
+
+        narrative_mgr = NarrativeManager(filepath)
+        narrative_mgr.state.current_chapter = novel_number
+
+        settlement_parser = SettlementParser(llm_adapter)
+        character_names = _extract_character_names(old_character_state)
+
+        settlement = settlement_parser.extract_settlement(
+            chapter_text=chapter_text,
+            chapter_number=novel_number,
+            character_names=character_names,
+        )
+
+        settlement_parser.apply_to_manager(settlement, narrative_mgr, novel_number)
+        narrative_mgr.save()
+        narrative_mgr.sync_to_text_files()
+
+        logging.info(f"Chapter {novel_number}: narrative state settlement completed.")
+    except Exception as e:
+        logging.warning(f"Chapter {novel_number}: narrative settlement failed (non-blocking): {e}")
+
     update_vector_store(
         embedding_adapter=create_embedding_adapter(
             embedding_interface_format,

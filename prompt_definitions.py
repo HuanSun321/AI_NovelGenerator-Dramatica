@@ -201,6 +201,15 @@ character_dynamics_prompt = """\
 - 一个合作纽带
 - 一个隐藏的背叛可能性
 
+叙事职能（Dramatica 角色原型，每个角色标注一个主职能）：
+- 主角（Protagonist）：驱动主线行动，面对核心冲突
+- 对抗者（Antagonist）：制造核心阻碍，与主角目标直接对立
+- 影响者（Impact Character）：挑战主角世界观，迫使其改变
+- 守护者（Guardian）：提供道德支持或保护，代表"正确的声音"
+- 搅局者（Contagonist）：诱惑主角偏离正轨或制造干扰
+- 陪衬者（Sidekick）：忠诚支持，反映主角信念的坚定程度
+- 怀疑者（Skeptic）：质疑计划和信念，代表现实的冷酷面
+
 要求：
 仅给出最终文本，不要解释任何内容。
 """
@@ -551,6 +560,18 @@ next_chapter_draft_prompt = """\
 
 └── 角色状态：
     {character_state}
+
+└── 情感弧线（角色情感走向，请保持延续性）：
+    {emotional_arcs_context}
+
+└── 关系网络（当前角色间关系状态）：
+    {relationship_context}
+
+└── 未闭合伏笔（需要在正文中自然推进或埋设）：
+    {hooks_context}
+
+└── 近期因果链（确保本章事件与已有因果关系一致）：
+    {causal_context}
 
 └── 当前章节摘要：
     {short_summary}
