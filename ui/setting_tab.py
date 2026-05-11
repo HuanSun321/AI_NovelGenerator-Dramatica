@@ -7,12 +7,12 @@ from utils import read_file, save_string_to_txt, clear_file_content, get_word_co
 from ui.context_menu import TextWidgetContextMenu
 
 def build_setting_tab(self):
-    self.setting_tab = self.tabview.add("Novel Architecture")
+    self.setting_tab = self.tabview.add("小说架构")
     self.setting_tab.rowconfigure(0, weight=0)
     self.setting_tab.rowconfigure(1, weight=1)
     self.setting_tab.columnconfigure(0, weight=1)
 
-    load_btn = ctk.CTkButton(self.setting_tab, text="加载 Novel_architecture.txt", command=self.load_novel_architecture, font=("Microsoft YaHei", 12))
+    load_btn = ctk.CTkButton(self.setting_tab, text="加载小说架构文件", command=self.load_novel_architecture, font=("Microsoft YaHei", 12))
     load_btn.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
     self.setting_word_count_label = ctk.CTkLabel(self.setting_tab, text="字数：0", font=("Microsoft YaHei", 12))

@@ -43,12 +43,12 @@ def build_config_tabview(self):
     self.config_tabview = ctk.CTkTabview(self.config_frame)
     self.config_tabview.grid(row=0, column=0, sticky="we", padx=5, pady=5)
 
-    self.ai_config_tab = self.config_tabview.add("LLM Model settings")
-    self.embeddings_config_tab = self.config_tabview.add("Embedding settings")
-    self.config_choose = self.config_tabview.add("Config choose")
+    self.ai_config_tab = self.config_tabview.add("大模型设置")
+    self.embeddings_config_tab = self.config_tabview.add("向量模型设置")
+    self.config_choose = self.config_tabview.add("配置选择")
 
     # PenBo 增加代理功能支持
-    self.proxy_setting_tab = self.config_tabview.add("Proxy setting")
+    self.proxy_setting_tab = self.config_tabview.add("代理设置")
 
 
     build_ai_config_tab(self)
@@ -323,7 +323,7 @@ def build_ai_config_tab(self):
     # 配置参数控件
     row_start = 2
     # 1) API Key
-    create_label_with_help(self, self.ai_config_tab, "API Key:", "api_key", row_start, 0)
+    create_label_with_help(self, self.ai_config_tab, "API 密钥：", "api_key", row_start, 0)
     self.api_key_var = ctk.StringVar(value="")
     api_key_entry = ctk.CTkEntry(
         self.ai_config_tab, 
@@ -334,7 +334,7 @@ def build_ai_config_tab(self):
     api_key_entry.grid(row=row_start, column=1, columnspan=2, padx=5, pady=5, sticky="nsew")
     
     # 2) Base URL
-    create_label_with_help(self, self.ai_config_tab, "Base URL:", "base_url", row_start+1, 0)
+    create_label_with_help(self, self.ai_config_tab, "接口地址：", "base_url", row_start+1, 0)
     self.base_url_var = ctk.StringVar(value="")
     base_url_entry = ctk.CTkEntry(
         self.ai_config_tab, 
@@ -366,7 +366,7 @@ def build_ai_config_tab(self):
     model_name_entry.grid(row=row_start+3, column=1, columnspan=2, padx=5, pady=5, sticky="nsew")
     
     # 5) Temperature
-    create_label_with_help(self, self.ai_config_tab, "Temperature:", "temperature", row_start+4, 0)
+    create_label_with_help(self, self.ai_config_tab, "温度：", "temperature", row_start+4, 0)
     self.temperature_var = ctk.DoubleVar(value=0.7)
     def update_temp_label(value):
         self.temp_value_label.configure(text=f"{float(value):.2f}")
@@ -387,7 +387,7 @@ def build_ai_config_tab(self):
     self.temp_value_label.grid(row=row_start+4, column=2, padx=5, pady=5, sticky="w")
     
     # 6) Max Tokens
-    create_label_with_help(self, self.ai_config_tab, "Max Tokens:", "max_tokens", row_start+5, 0)
+    create_label_with_help(self, self.ai_config_tab, "最大令牌数：", "max_tokens", row_start+5, 0)
     self.max_tokens_var = ctk.IntVar(value=8192)
     def update_max_tokens_label(value):
         self.max_tokens_value_label.configure(text=str(int(float(value))))
@@ -408,7 +408,7 @@ def build_ai_config_tab(self):
     self.max_tokens_value_label.grid(row=row_start+5, column=2, padx=5, pady=5, sticky="w")
     
     # 7) Timeout
-    create_label_with_help(self, self.ai_config_tab, "Timeout (sec):", "timeout", row_start+6, 0)
+    create_label_with_help(self, self.ai_config_tab, "超时（秒）：", "timeout", row_start+6, 0)
     self.timeout_var = ctk.IntVar(value=600)
     def update_timeout_label(value):
         self.timeout_value_label.configure(text=str(int(float(value))))
@@ -515,12 +515,12 @@ def build_embeddings_config_tab(self):
     self.embeddings_config_tab.grid_columnconfigure(2, weight=0)
 
     # 1) Embedding API Key
-    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="Embedding API Key:", tooltip_key="embedding_api_key", row=0, column=0, font=("Microsoft YaHei", 12))
+    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="向量模型 API 密钥：", tooltip_key="embedding_api_key", row=0, column=0, font=("Microsoft YaHei", 12))
     emb_api_key_entry = ctk.CTkEntry(self.embeddings_config_tab, textvariable=self.embedding_api_key_var, font=("Microsoft YaHei", 12), show="*")
     emb_api_key_entry.grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
 
     # 2) Embedding 接口格式
-    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="Embedding 接口格式:", tooltip_key="embedding_intexrface_format", row=1, column=0, font=("Microsoft YaHei", 12))
+    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="向量模型接口格式：", tooltip_key="embedding_intexrface_format", row=1, column=0, font=("Microsoft YaHei", 12))
 
     emb_interface_options = ["DeepSeek", "OpenAI", "Azure OpenAI", "Gemini", "Ollama", "ML Studio","SiliconFlow"]
 
@@ -528,17 +528,17 @@ def build_embeddings_config_tab(self):
     emb_interface_dropdown.grid(row=1, column=1, padx=5, pady=5, sticky="nsew")
 
     # 3) Embedding Base URL
-    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="Embedding Base URL:", tooltip_key="embedding_url", row=2, column=0, font=("Microsoft YaHei", 12))
+    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="向量模型接口地址：", tooltip_key="embedding_url", row=2, column=0, font=("Microsoft YaHei", 12))
     emb_url_entry = ctk.CTkEntry(self.embeddings_config_tab, textvariable=self.embedding_url_var, font=("Microsoft YaHei", 12))
     emb_url_entry.grid(row=2, column=1, padx=5, pady=5, sticky="nsew")
 
     # 4) Embedding Model Name
-    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="Embedding Model Name:", tooltip_key="embedding_model_name", row=3, column=0, font=("Microsoft YaHei", 12))
+    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="向量模型名称：", tooltip_key="embedding_model_name", row=3, column=0, font=("Microsoft YaHei", 12))
     emb_model_name_entry = ctk.CTkEntry(self.embeddings_config_tab, textvariable=self.embedding_model_name_var, font=("Microsoft YaHei", 12))
     emb_model_name_entry.grid(row=3, column=1, padx=5, pady=5, sticky="nsew")
 
     # 5) Retrieval Top-K
-    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="Retrieval Top-K:", tooltip_key="embedding_retrieval_k", row=4, column=0, font=("Microsoft YaHei", 12))
+    create_label_with_help(self, parent=self.embeddings_config_tab, label_text="检索 Top-K：", tooltip_key="embedding_retrieval_k", row=4, column=0, font=("Microsoft YaHei", 12))
     emb_retrieval_k_entry = ctk.CTkEntry(self.embeddings_config_tab, textvariable=self.embedding_retrieval_k_var, font=("Microsoft YaHei", 12))
     emb_retrieval_k_entry.grid(row=4, column=1, padx=5, pady=5, sticky="nsew")
 

@@ -7,12 +7,12 @@ from utils import read_file, save_string_to_txt, clear_file_content, get_word_co
 from ui.context_menu import TextWidgetContextMenu
 
 def build_character_tab(self):
-    self.character_tab = self.tabview.add("Character State")
+    self.character_tab = self.tabview.add("角色状态")
     self.character_tab.rowconfigure(0, weight=0)
     self.character_tab.rowconfigure(1, weight=1)
     self.character_tab.columnconfigure(0, weight=1)
 
-    load_btn = ctk.CTkButton(self.character_tab, text="加载 character_state.txt", command=self.load_character_state, font=("Microsoft YaHei", 12))
+    load_btn = ctk.CTkButton(self.character_tab, text="加载角色状态文件", command=self.load_character_state, font=("Microsoft YaHei", 12))
     load_btn.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
     self.character_wordcount_label = ctk.CTkLabel(self.character_tab, text="字数：0", font=("Microsoft YaHei", 12))

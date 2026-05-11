@@ -10,7 +10,7 @@ from xml.etree import ElementTree as ET
 import shutil
 import time
 def build_other_settings_tab(self):
-    self.other_settings_tab = self.tabview.add("Other Settings")
+    self.other_settings_tab = self.tabview.add("其他设置")
     self.other_settings_tab.rowconfigure(0, weight=1)
     self.other_settings_tab.columnconfigure(0, weight=1)
     if "webdav_config" not in self.loaded_config:
@@ -95,7 +95,7 @@ def build_other_settings_tab(self):
 
     
 
-    create_label_with_help(self, parent=dav_warp_frame, label_text="Webdav URL", tooltip_key="webdav_url",row=0, column=0, font=("Microsoft YaHei", 12), sticky="w")
+    create_label_with_help(self, parent=dav_warp_frame, label_text="WebDAV 地址：", tooltip_key="webdav_url",row=0, column=0, font=("Microsoft YaHei", 12), sticky="w")
     dav_url_entry = ctk.CTkEntry(dav_warp_frame, textvariable=self.webdav_url_var, font=("Microsoft YaHei", 12))
     dav_url_entry.grid(row=0, column=1, padx=5, pady=5, sticky="w")
 

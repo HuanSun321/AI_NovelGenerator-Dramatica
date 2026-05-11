@@ -7,12 +7,12 @@ from utils import read_file, save_string_to_txt, clear_file_content, get_word_co
 from ui.context_menu import TextWidgetContextMenu
 
 def build_directory_tab(self):
-    self.directory_tab = self.tabview.add("Chapter Blueprint")
+    self.directory_tab = self.tabview.add("章节蓝图")
     self.directory_tab.rowconfigure(0, weight=0)
     self.directory_tab.rowconfigure(1, weight=1)
     self.directory_tab.columnconfigure(0, weight=1)
 
-    load_btn = ctk.CTkButton(self.directory_tab, text="加载 Novel_directory.txt", command=self.load_chapter_blueprint, font=("Microsoft YaHei", 12))
+    load_btn = ctk.CTkButton(self.directory_tab, text="加载章节蓝图文件", command=self.load_chapter_blueprint, font=("Microsoft YaHei", 12))
     load_btn.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
     self.directory_word_count_label = ctk.CTkLabel(self.directory_tab, text="字数：0", font=("Microsoft YaHei", 12))

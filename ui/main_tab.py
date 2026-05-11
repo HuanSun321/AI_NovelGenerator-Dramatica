@@ -8,7 +8,7 @@ def build_main_tab(self):
     """
     主Tab包含左侧的"本章内容"编辑框和输出日志，以及右侧的主要操作和参数设置区
     """
-    self.main_tab = self.tabview.add("Main Functions")
+    self.main_tab = self.tabview.add("主要功能")
     self.main_tab.rowconfigure(0, weight=1)
     self.main_tab.columnconfigure(0, weight=1)
     self.main_tab.columnconfigure(1, weight=0)
@@ -61,7 +61,7 @@ def build_left_layout(self):
 
     self.btn_generate_architecture = ctk.CTkButton(
         self.step_buttons_frame,
-        text="Step1. 生成架构",
+        text="第一步. 生成架构",
         command=self.generate_novel_architecture_ui,
         font=("Microsoft YaHei", 12)
     )
@@ -69,7 +69,7 @@ def build_left_layout(self):
 
     self.btn_generate_directory = ctk.CTkButton(
         self.step_buttons_frame,
-        text="Step2. 生成目录",
+        text="第二步. 生成目录",
         command=self.generate_chapter_blueprint_ui,
         font=("Microsoft YaHei", 12)
     )
@@ -77,7 +77,7 @@ def build_left_layout(self):
 
     self.btn_generate_chapter = ctk.CTkButton(
         self.step_buttons_frame,
-        text="Step3. 生成草稿",
+        text="第三步. 生成草稿",
         command=self.generate_chapter_draft_ui,
         font=("Microsoft YaHei", 12)
     )
@@ -85,7 +85,7 @@ def build_left_layout(self):
 
     self.btn_finalize_chapter = ctk.CTkButton(
         self.step_buttons_frame,
-        text="Step4. 定稿章节",
+        text="第四步. 定稿章节",
         command=self.finalize_chapter_ui,
         font=("Microsoft YaHei", 12)
     )
