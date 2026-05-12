@@ -1,5 +1,7 @@
 # 📖 Automatic Novel Generation Tool
 
+> **This repository is a modified version based on [AI_NovelGenerator](https://github.com/YILING0013/AI_NovelGenerator) by YILING0013, with narrative tracking features ported from [Dramatica-Flow](https://github.com/ydsgangge-ux/dramatica-flow). Licensed under AGPL-3.0. The original MIT-licensed code from Dramatica-Flow retains its original copyright notice.**
+
 [中文文档](./README_zh-CN.md) | English
 
 > ~~Currently I don't have much energy to maintain this project. The project brings no revenue, and with graduation approaching I have many other priorities. If time permits in the future I may consider a refactor using newer technologies. — 2025/09/24~~

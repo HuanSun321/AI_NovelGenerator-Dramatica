@@ -1,5 +1,7 @@
 # 📖 自动小说生成工具
 
+> **本仓库基于 [AI_NovelGenerator](https://github.com/YILING0013/AI_NovelGenerator)（作者 YILING0013）修改，叙事追踪功能移植自 [Dramatica-Flow](https://github.com/ydsgangge-ux/dramatica-flow)（MIT 协议）。原 MIT 协议代码保留版权声明。整体以 AGPL-3.0 协议发布。**
+
 >- ~~当前没有什么精力维护该项目，本身该项目并无任何收益，以及临近毕业，有很多内容要忙，如果后面有时间的话，再考虑基于更新的技术去重构吧。——2025/9/24~~
 >
 >- ~~**(2026/03/09)：** 本项目即将在近期开启重构，届时将采用更先进的技术实现与全新的创意。~~
